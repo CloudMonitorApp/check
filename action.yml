@@ -1,14 +1,28 @@
-name: "DeployGuard"
-description: "Prevent unsafe Laravel deploys"
-
+name: "CloudMonitor"
+description: "Prevent unsafe deploys before production"
 inputs:
   api_key:
+    description: "CloudMonitor API key"
     required: true
   api_url:
+    description: "CloudMonitor API URL (e.g. https://cloudmonitor.yourdomain.com)"
     required: true
   baseline:
-    default: production
+    description: "Baseline environment"
+    required: false
+    default: "production"
   environments:
-    default: staging,production
+    description: "Comma-separated environments to compare"
+    required: false
+    default: "staging,production"
   fail_on:
-    default: high
+    description: "Fail threshold: high|medium|low"
+    required: false
+    default: "high"
+  annotate:
+    description: "Emit GitHub annotations"
+    required: false
+    default: "true"
+runs:
+  using: "node20"
+  main: "index.js"
